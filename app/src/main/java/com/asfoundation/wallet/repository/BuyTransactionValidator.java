@@ -26,11 +26,12 @@ public class BuyTransactionValidator implements TransactionValidator {
     String oemAddress = BuildConfig.DEFAULT_OEM_ADDRESS;
     String productName = paymentTransaction.getTransactionBuilder()
         .getSkuId();
-    return defaultTokenProvider.getDefaultToken()
+    defaultTokenProvider.getDefaultToken()
         .flatMapCompletable(tokenInfo -> sendTransactionInteract.computeBuyTransactionHash(
             paymentTransaction.getTransactionBuilder())
             .map(hash -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(), hash,
                 productName, packageName, storeAddress, oemAddress))
             .flatMapCompletable(billingPaymentProofSubmission::processPurchaseProof));
+    return Completable.complete();
   }
 }

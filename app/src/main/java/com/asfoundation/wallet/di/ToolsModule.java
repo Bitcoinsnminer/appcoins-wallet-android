@@ -216,8 +216,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       DataMapper dataMapper, BillingFactory billingFactory) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), new BdsPendingTransactionService(billingFactory, Schedulers.io(), 5,
-        billingPaymentProofSubmission)),
+        Schedulers.io(), /*new BdsPendingTransactionService(billingFactory, Schedulers.io(), 5,
+        billingPaymentProofSubmission)*/pendingTransactionService),
         new BuyTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider), defaultTokenProvider, countryCodeProvider, dataMapper);
   }
