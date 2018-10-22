@@ -20,6 +20,4 @@ public interface IabView {
   void showOnChain(BigDecimal amount);
 
   void showOffChain(BigDecimal amount);
-
-  void showRewardPayment(BigDecimal amount);
 }

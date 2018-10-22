@@ -1,13 +1,12 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.BillingFactory;
-import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import com.appcoins.wallet.billing.Billing;
+import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
-import com.appcoins.wallet.commons.MemoryCache;
+import com.appcoins.wallet.billing.repository.entity.Gateway;
+import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.Token;
@@ -32,6 +31,7 @@ import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
+import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
@@ -199,8 +199,7 @@ public class InAppPurchaseInteractorTest {
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
                 new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
-            new BillingMessagesMapper(new ExternalBillingSerializer()), billingFactory,
-            new ExternalBillingSerializer(),
+            new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer(),
             new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)),
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),

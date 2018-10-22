@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.adyen.core.models.PaymentMethod;
-import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.billing.CreditCardBilling;

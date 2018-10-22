@@ -6,13 +6,10 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.RemoteException
 import com.appcoins.billing.AppcoinsBilling
-import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.BillingFactory
-import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
+import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import io.reactivex.Single
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
@@ -108,10 +105,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     return try {
-      val serializedProducts: List<String> = billing.getProducts(skus, type).onErrorResumeNext {
-        it.printStackTrace()
-        Single.error(billingMessagesMapper.mapException(it))
-      }
+      val serializedProducts: List<String> = billing.getProducts(skus, type)
           .flatMap { Single.just(serializer.serializeProducts(it)) }.subscribeOn(Schedulers.io())
           .blockingGet()
       billingMessagesMapper.mapSkuDetails(serializedProducts)
@@ -145,7 +139,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
           try {
             intentBuilder.buildBuyIntentBundle(serializer.mapProduct(skuDetails[0]),
                 tokenContractAddress,
-                iabContractAddress, developerPayload, true, packageName)
+                    iabContractAddress, developerPayload, true, packageName)
           } catch (exception: Exception) {
             billingMessagesMapper.mapBuyIntentError(exception)
           }

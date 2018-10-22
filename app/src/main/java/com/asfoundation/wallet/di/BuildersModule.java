@@ -16,7 +16,6 @@ import com.asfoundation.wallet.ui.TransactionDetailActivity;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
-import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyFragment;
 import com.asfoundation.wallet.ui.iab.CreditCardAuthorizationFragment;
 import com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
@@ -80,8 +79,5 @@ import dagger.android.ContributesAndroidInjector;
 
   @ContributesAndroidInjector()
   abstract CreditCardAuthorizationFragment bindCreditCardAuthorizationFragment();
-
-  @ContributesAndroidInjector()
-  abstract AppcoinsRewardsBuyFragment bindAppcoinsRewardsBuyFragment();
 
 }
